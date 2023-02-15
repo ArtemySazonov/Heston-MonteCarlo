@@ -1,0 +1,62 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{vega}
+
+\addbibresource{assets/pricing_lib.bib}
+
+\DeclareMathOperator*{\plim}{\ensuremath{\operatorname{\P-lim}}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+
+\subtitle{Student Research Group 'Stochastic Volatility Models', Project 'Heston--2'}
+\title{Exotics Pricing via the Simulation of the Heston Model}
+\author{Artemy Sazonov, Danil Legenky, Kirill Korban}
+\institute{Lomonosov Moscow State Univesity, Faculty of Mechanics and Mathematics}
+\date{February 25, 2023}
+
+\begin{document}
+    \maketitle
+
+    \begin{frame}{Heston Model Definition}
+        Assume that the spot asset at time $t$ follows the diffusion
+        \begin{align}
+            dS(t) & = \mu S(t)dt + \sqrt{v(t)} S(t) dZ_1(t), \label{Heston:price}\\
+            dv(t) & = \left(\delta^2 - 2\beta v(t)\right) dt + \sigma\sqrt{v(t)} dZ_2(t), \label{Heston:variance}
+        \end{align}
+        where $Z_1$, $Z_2$ are the correlated Wiener processes with $dZ_1dZ_2 = \rho dt$.
+    \end{frame}
+
+    \section{Introduction to Monte-Carlo Methods}
+        \input{part1/part1.tex}
+
+    \section{Euler Simulation Method}
+        \input{part2/part2.tex}
+
+    \section{Andersen Simulation Methods}
+        \input{part3/part3.tex}
+
+    \section{Computation Examples}
+        \input{part5/part5.tex}
+
+    %\section{Greeks Computation}
+    %    \input{part6/part6.tex}
+    
+    \section{Conclusion}
+        \begin{frame}{Conclusion}
+            \begin{enumerate}
+                \item We introduced the three common Heston simulation methods: Euler-Maruyama, Andersen TG and Andersen QE; 
+                \item We compared the theoretical vanilla options prices and their Monte-Carlo counterparts;
+                \item We measured the performance while pricing the exotics.
+            \end{enumerate}
+        \end{frame}
+        \begin{frame}{To-dos}
+            \begin{enumerate}
+                \item Implement the Exact (Broadie and Kaya) scheme;
+                \item Measure the presiceness of the pricers for the real market data;
+                \item Part of the pricing library.
+            \end{enumerate}
+        \end{frame}
+
+\end{document}
