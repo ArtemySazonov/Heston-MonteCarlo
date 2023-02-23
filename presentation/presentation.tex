@@ -3,6 +3,9 @@
 
 \addbibresource{assets/pricing_lib.bib}
 
+\usepackage{minted}
+\newminted{python}{linenos=true,fontsize=\footnotesize}
+
 \DeclareMathOperator*{\plim}{\ensuremath{\operatorname{\P-lim}}}
 
 \newcommand{\cA}{\mathcal{A}}
@@ -11,7 +14,7 @@
 \newcommand{\cN}{\mathcal{N}}
 
 \subtitle{Student Research Group 'Stochastic Volatility Models', Project 'Heston--2'}
-\title{Exotics Pricing via the Simulation of the Heston Model}
+\title{Monte-Carlo Pricing under the Heston Model}
 \author{Artemy Sazonov, Danil Legenky, Kirill Korban}
 \institute{Lomonosov Moscow State Univesity, Faculty of Mechanics and Mathematics}
 \date{February 25, 2023}
@@ -23,7 +26,7 @@
         Assume that the spot asset at time $t$ follows the diffusion
         \begin{align}
             dS(t) & = \mu S(t)dt + \sqrt{v(t)} S(t) dZ_1(t), \label{Heston:price}\\
-            dv(t) & = \left(\delta^2 - 2\beta v(t)\right) dt + \sigma\sqrt{v(t)} dZ_2(t), \label{Heston:variance}
+            dv(t) & = \kappa\left(\bar v -  v(t)\right) dt + \gamma\sqrt{v(t)} dZ_2(t), \label{Heston:variance}
         \end{align}
         where $Z_1$, $Z_2$ are the correlated Wiener processes with $dZ_1dZ_2 = \rho dt$.
     \end{frame}
@@ -31,16 +34,19 @@
     \section{Introduction to Monte-Carlo Methods}
         \input{part1/part1.tex}
 
-    \section{Euler Simulation Method}
+    \section{Discretization Methods}
         \input{part2/part2.tex}
 
-    \section{Andersen Simulation Methods}
+    \section{Practical Questions}
         \input{part3/part3.tex}
 
-    \section{Computation Examples}
+    \section{Accuracy-Performance Trade-Off Analysis}
+        \input{part4/part4.tex}
+
+    \section{Variance Reduction Methods Efficiency}
         \input{part5/part5.tex}
 
-    \section{Conclusion}
+    \section{Problems, Issues, and Plans}
         \begin{frame}{Conclusion}
             \begin{enumerate}
                 \item We introduced the three common Heston simulation methods: Euler-Maruyama, Andersen TG and Andersen QE; 
@@ -48,6 +54,7 @@
                 \item We measured the performance while pricing the exotics.
             \end{enumerate}
         \end{frame}
+        
         \begin{frame}{To-dos}
             \begin{enumerate}
                 \item Implement the Exact (Broadie and Kaya) scheme;

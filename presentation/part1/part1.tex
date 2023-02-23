@@ -33,3 +33,37 @@
             \end{equation}
         \end{definition}
     \end{frame}
+
+\subsection{Variance Reduction Methods}
+
+    \begin{frame}{Variance Reduction Methods}{Control Variates}
+        Suppose that we have another random variable $Z$ that is correlated with $Y$ and 
+        $\E\left[Z\right] = \mu$ is known. Then we could introduce the following estimator:
+        \begin{equation}
+            \hat\theta^b = \bar Y + b(\bar Z - \mu),
+        \end{equation}
+        where $b$ is a constant. Obviously, $\hat\theta^b$ is a consistent unbiased estimator of 
+        $\theta$. How do we choose $b$? We need to minimize the variance of $\hat\theta^b$. A simple 
+        unconstrained optimization problem:
+        \begin{equation*}
+            \var \hat\theta^b = \var \bar Y + b^2 \var \bar Z - 2b \cov [\bar Y, \bar Z] \to \min_b.
+        \end{equation*}
+        The solution is
+        \begin{equation}
+            b^* = \frac{\cov [Y, Z]}{\var Z}.\label{eq:control_variates:bopt}
+        \end{equation}
+    \end{frame}
+
+    \begin{frame}{Variance Reduction Methods}{Antithetic Variates}
+        Suppose that we have two correlated identically distributed samples $Y^1$ and $Y^2$: $\cov[Y_i^1, Y_j^2] = \delta_{ij}\cov[Y_i^1, Y_i^2]$.
+        Then we could introduce the following estimator:
+        \begin{equation}
+            \hat\theta_{\operatorname{AV}} = \frac{\bar Y^1 + \bar Y^2}{2}.
+        \end{equation}
+        Again, we can see that this estimator is unbiased and consistent. The variance of this estimator is
+        \begin{equation*}
+            \var \hat\theta_{\operatorname{AV}} = \frac{1}{4} \var[\bar Y^1] + \frac{1}{4} \var[\bar Y^2] + \frac{1}{2} \cov[\bar Y^1, \bar Y^2] .
+        \end{equation*}
+        Thus, the variance reduction effect takes place when $\rho < 0$. If $Y^1 = g(U)$, then its antithetic 
+        variate is $Y^2 = g(1-U)$, where $U \sim U[0, 1]$. 
+    \end{frame}

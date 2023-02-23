@@ -18,3 +18,4 @@
 *.pyc
 __pycache__
 .ipynb_checkpoints
+_minted-presentation

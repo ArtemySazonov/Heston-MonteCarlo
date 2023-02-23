@@ -107,7 +107,6 @@ def mc_price(payoff:                 Callable,
     length_conf_interval = 1.
     n                    = 0
     C                    = -2*norm.ppf(confidence_level*0.5, loc = 0., scale = 1.)
-    # print(confidence_level*0.5, -2*norm.ppf(confidence_level*0.5, loc = 0., scale = 1.))
     sigma_n              = 0.
     batch_new            = np.zeros(batch_size, dtype=np.float64)
     current_Pt_sum       = 0.        
@@ -127,7 +126,6 @@ def mc_price(payoff:                 Callable,
 
             n+=4*batch_size
             length_conf_interval = C * sqrt(sigma_n / n)
-            # print(sigma_n, length_conf_interval, n, C, sigma_n / n)
     else:
         if mu == None:
             return "NaN"
@@ -218,8 +216,6 @@ def simulate_heston_euler(state:           MarketState,
             sqrtvmaxdt       = sqrt(vmax*dt)
             logS[4*n+3, i+1] = logS[4*n+3, i] + (r - 0.5 * vmax) * dt - sqrtvmaxdt * Z[0, n, i]
             V[4*n+3, i+1]    = V[4*n+3, i] + kappa*(vbar - vmax)*dt + gamma*sqrtvmaxdt*(-rho*Z[0, n, i] + sqrt1_rho2*Z[1, n, i])
-
-
 
     return [np.exp(logS), V]
 
@@ -362,7 +358,6 @@ def simulate_heston_andersen_qe(state:         MarketState,
            
     return [np.exp(logS), V]
 
-
 def calculate_r_for_andersen_tg(x_:      float,
                                 maxiter: int = 2500, 
                                 tol:     float = 1e-5
@@ -404,7 +399,7 @@ def simulate_heston_andersen_tg(state:         MarketState,
         T (float, optional):              Contract termination time expressed as a non-integer amount of years. Defaults to 1..
         dt (float, optional):             Time step. Defaults to 1e-2.
         n_simulations (int, optional):    number of the simulations. Defaults to 10_000.
-        gamma_1 (float, optional):        _description_. Defaults to 0.0.
+        gamma_1 (float, optional):        Integration parameter. Defaults to 0.0.
 
     Raises:
         error: The parameter \gamma_1 must be in the interval [0,1].
@@ -437,7 +432,6 @@ def simulate_heston_andersen_tg(state:         MarketState,
     logS[:, 0] = np.log(s0)
 
     Z          = np.random.standard_normal(size=(2, n_simulations, N_T))
-    #Z_V        = np.random.standard_normal(size=(n_simulations, N_T))    #do we need this?  
     p1         = (1. - E)*(gamma**2)*E/kappa
     p2         = (vbar*gamma**2)/(2.0*kappa)*((1.-E)**2)
     p3         = vbar * (1.- E)
@@ -449,7 +443,6 @@ def simulate_heston_andersen_tg(state:         MarketState,
             m               = p3 + V[4*n, i]*E
             s_2             = V[4*n, i]*p1 + p2
             Psi             = s_2/(m**2) 
-
 
             if Psi > x_grid[-1]:
                 inx         = x_grid.shape[0] -1
@@ -498,6 +491,5 @@ def simulate_heston_andersen_tg(state:         MarketState,
 
             V[4*n+3,i+1]    = max(nu + sigma*Z[1, n, i], 0)
             logS[4*n+3,i+1] = logS[4*n+3,i] + rdtK0 + K_1*V[4*n+3,i] + K_2*V[4*n+3,i+1] - sqrt(K_3*V[4*n+3,i]+K_4*V[4*n+3,i+1]) * Z[0,n,i]
-            
 
     return [np.exp(logS), V]
