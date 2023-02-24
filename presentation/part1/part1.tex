@@ -19,23 +19,8 @@
         \end{equation}
         That means that the estimation error is equal to $2z_{\alpha/2} \sqrt{\frac{\sigma^2}{n}}$.
     \end{frame}
-
-    \begin{frame}{Discretization Schemes for SDEs}{Strong and weak convergence as a global truncation error analogue}
-        \begin{definition}
-            Let $\hat X^n(t)$ be a mesh approximation of an SDE solution $X(t)$ (we assume that there exists a unique strong solution). 
-            Then a scheme is said to have a strong convergence of order $p$ if 
-            \begin{equation}
-                \E\left[\left|\hat X^n(T) - X(T)\right|\right] \leq Ch^p, \quad n \to \infty.
-            \end{equation}
-            A scheme is said to have a weak convergence of order $p$ if for any polynomial $f: \R \to \R$ we have
-            \begin{equation}
-                \left|\E\left[f(\hat X^n(T))\right] - \E\left[f(X(T))\right]\right| \leq Ch^p, \quad n \to \infty.
-            \end{equation}
-        \end{definition}
-    \end{frame}
-
+    
 \subsection{Variance Reduction Methods}
-
     \begin{frame}{Variance Reduction Methods}{Control Variates}
         Suppose that we have another random variable $Z$ that is correlated with $Y$ and 
         $\E\left[Z\right] = \mu$ is known. Then we could introduce the following estimator:

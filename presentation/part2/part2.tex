@@ -1,8 +1,22 @@
+\begin{frame}{Discretization Schemes for SDEs}{Strong and weak convergence as a global truncation error analogue}
+    \begin{definition}
+        Let $\hat X^n(t)$ be a mesh approximation of an SDE solution $X(t)$ (we assume that there exists a unique strong solution). 
+        Then a scheme is said to have a strong convergence of order $p$ if 
+        \begin{equation}
+            \E\left[\left|\hat X^n(T) - X(T)\right|\right] \leq Ch^p, \quad n \to \infty.
+        \end{equation}
+        A scheme is said to have a weak convergence of order $p$ if for any polynomial $f: \R \to \R$ we have
+        \begin{equation}
+            \left|\E\left[f(\hat X^n(T))\right] - \E\left[f(X(T))\right]\right| \leq Ch^p, \quad n \to \infty.
+        \end{equation}
+    \end{definition}
+\end{frame}
+
 \begin{frame}{Euler Scheme for the Heston Model}{Modified Euler-Maruyama Discretization Scheme}
     Suppose we have the Heston model \eqref{Heston:price} -- \eqref{Heston:variance}. Then it could be numerically solved by the following finite difference scheme (for the log-prices $X(t)$):
     \begin{align}
         X_{n+1} & = X_n + (\mu - 0.5 v_n^+)h_n + \sqrt{v_n^+} \sqrt{h_n} Z_{1,n}, \label{Euler:Heston:price:posmod}\\
-        v_{n+1} & = v_n + \left(\delta^2 - 2\beta v_n^+\right) h_n + \sigma \sqrt{v_n^+} \sqrt{h_n} Z_{2,n}, \label{Euler:Heston:variance:posmod}
+        v_{n+1} & = v_n + \kappa\left(\bar v - v_n^+\right) h_n + \gamma \sqrt{v_n^+} \sqrt{h_n} Z_{2,n}, \label{Euler:Heston:variance:posmod}
     \end{align}
     and then we take the exponential of the log-prices:
     \begin{equation}
